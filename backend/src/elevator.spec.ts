@@ -7,7 +7,7 @@ const minFloor = 0;
 const speedInSeconds = 0.1;
 const startFloor = 20;
 
-const elevator = new Elevator(id, maxFloor, minFloor, speedInSeconds, startFloor);
+const elevator = new Elevator({id, minFloor, maxFloor, speedInSeconds, startFloor});
 
 const testIdlePosition = (position: string, waitSeconds: number) => {
     it(`should be idle at ${position}`, () => {
@@ -17,6 +17,14 @@ const testIdlePosition = (position: string, waitSeconds: number) => {
 
     it(`should have a floor and a destination with the same value at ${position}`, () => {
         expect(elevator.floor).toBe(elevator.destination);
+    });
+
+    it("should have a correct distance to the ground floor", () => {
+        expect(elevator.distance(minFloor)).toBe(elevator.floor);
+    });
+
+    it("should have a correct distance to the max floor", () => {
+        expect(elevator.distance(maxFloor)).toBe(maxFloor - elevator.floor);
     });
 };
 

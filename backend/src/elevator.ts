@@ -2,18 +2,22 @@ class Elevator {
 
     private _voyage: Voyage;
 
-    constructor(
-      private _id: number,
-      private _maxFloor: number,
-      private _minFloor: number,
-      private _speedInSeconds: number,
-      private _startFloor: number,
-    ) {
-        if (this.floorOutOfBounds(_startFloor)) {
-            throw new Error(`startFloor can not be ${_startFloor}, should be in [${_minFloor}, ${_maxFloor}]`);
+    private _id: number;
+    private _minFloor: number;
+    private _maxFloor: number;
+    private _speedInSeconds: number;
+
+    constructor(spec: IElevatorSpec) {
+        if (this.floorOutOfBounds(spec.startFloor)) {
+            throw new Error(`startFloor can not be ${spec.startFloor}, should be in [${spec.minFloor}, ${spec.maxFloor}]`);
         }
 
-        this._voyage = new Voyage(_startFloor, _startFloor);
+        this._id = spec.id;
+        this._minFloor = spec.minFloor;
+        this._maxFloor = spec.maxFloor;
+        this._speedInSeconds = spec.speedInSeconds;
+
+        this._voyage = new Voyage(spec.startFloor, spec.startFloor);
     }
 
     get id(): number {
@@ -36,7 +40,17 @@ class Elevator {
         return false;
     }
 
-    public requestFloor(floor: number): void {
+    // the cost of an voyage to a floor from current position
+    public cost = (floor: number): number => {
+      return this.idle ? this.distance(floor) : 1000000;
+    }
+
+    // distance from current floor to otherFloor
+    public distance = (otherFloor: number): number =>  {
+      return Math.abs(this.calculateFloor() - otherFloor);
+    }
+
+    public requestFloor = (floor: number): void => {
       if (!this.idle) {
          throw new Error("floor can only be requested when elevator is idle");
       }
@@ -47,7 +61,7 @@ class Elevator {
       this._voyage = new Voyage(startFloor, floor);
     }
 
-    private updateVoyage(): void {
+    private updateVoyage = (): void => {
       const floor = this.calculateFloor();
       // if destination is reached update start floor
       if (this._voyage.destination === floor) {
@@ -55,7 +69,7 @@ class Elevator {
       }
     }
 
-    private calculateFloor(): number {
+    private calculateFloor = (): number => {
       const timeNow = new Date().getTime();
       const secondsSinceStart = (timeNow - this._voyage.startTimestamp) / 1000;
       const traveledFloorsSinceStart = Math.floor(secondsSinceStart / this._speedInSeconds);
@@ -66,23 +80,29 @@ class Elevator {
       return this._voyage.direction === Direction.Up ? floorIfGoingUp : floorIfGoingDown;
   }
 
-    private floorOutOfBounds(floor: number): boolean {
+    private floorOutOfBounds = (floor: number): boolean => {
       if ((floor < this._minFloor) ||  (floor > this._maxFloor)) {
           return true;
       }
       return false;
     }
+}
+interface IElevatorSpec {
+  id: number;
+  maxFloor: number;
+  minFloor: number;
+  speedInSeconds: number;
+  startFloor: number;
+}
 
-  }
-
-  // Voyage should be immutable
+// Voyage should be immutable
 class Voyage {
 
       // timestamp in milliseconds
       private _startTimestamp: number;
       private _direction: Direction;
 
-      constructor(private _start, private _destination: number) {
+      constructor(private _start: number, private _destination: number) {
           this._startTimestamp = new Date().getTime();
           this._direction = _start > _destination ? Direction.Down
                           : _start < _destination ? Direction.Up
@@ -111,4 +131,4 @@ enum Direction {
       Up = 1,
   }
 
-export { Elevator };
+export { Elevator, IElevatorSpec };
