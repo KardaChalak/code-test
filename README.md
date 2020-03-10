@@ -15,7 +15,58 @@ Both the frontend and the backend has the following npm scripts
 - `npm run develop`
   - Runs the application locally
 
+## Demo
+
+Spin up both backend and frontend
+
+Create the elevators by performing:
+
+```curl
+curl --location --request PUT 'localhost:3000/elevators' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+	{
+		"id": 0,
+		"max_floor": 20,
+		"min_flor": 0,
+		"start_floor": 10,
+		"speed": 2
+	},
+	{
+		"id": 1,
+		"max_floor": 20,
+		"min_flor": 0,
+		"start_floor": 10,
+		"speed": 2
+	},
+	{
+		"id": 2,
+		"max_floor": 20,
+		"min_flor": 0,
+		"start_floor": 10,
+		"speed": 2
+	},
+	{
+		"id": 3,
+		"max_floor": 20,
+		"min_flor": 0,
+		"start_floor": 10,
+		"speed": 2
+	},
+		{
+		"id": 4,
+		"max_floor": 20,
+		"min_flor": 0,
+		"start_floor": 10,
+		"speed": 2
+	}
+]
+```
+
+Then you are ready to test the elevators at http://localhost:8080/implementation
 ## Work left
+
+Backend
 
 Elevator no longer possible to use with a minFloor < 0
 Lack of unit tests
@@ -25,3 +76,7 @@ Handling of elevator id in the elevatorCoordinator
 Decouple the logic.
 Elevator queueing requests
 Use websocket instead of http
+
+Frontend
+
+Very messy frontend code. Move request logic to own file and move logic from the page component.
