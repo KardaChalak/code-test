@@ -1,6 +1,6 @@
 import * as React from "react";
-import ButtonPanel from "../../components/elevators/ButtonPanel";
-import Elevator from "../../components/elevators/Elevator";
+import ButtonPanel from "../../components/elevator/ButtonPanel";
+import Elevator from "../../components/elevator/Elevator";
 
 import * as css from "./ImplementationPage.module.scss";
 
