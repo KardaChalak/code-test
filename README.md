@@ -64,19 +64,21 @@ curl --location --request PUT 'localhost:3000/elevators' \
 ```
 
 Then you are ready to test the elevators at http://localhost:8080/implementation
+
 ## Work left
 
-Backend
+<b>Backend</b>
 
-Elevator no longer possible to use with a minFloor < 0
-Lack of unit tests
-Docker
-Service test for deployable docker artifact
-Handling of elevator id in the elevatorCoordinator
+Elevator no longer possible to use with a minFloor < 0.
+Lack of unit tests.
+Docker.
+Service test for deployable docker artifact.
+Handling of elevator id in the elevatorCoordinator.
 Decouple the logic.
-Elevator queueing requests
-Use websocket instead of http
+Elevator should be able to queue requests.
+Use websocket instead of http.
+Try out some different cost functions.
 
-Frontend
+<b>Frontend</b>
 
 Very messy frontend code. Move request logic to own file and move logic from the page component.
