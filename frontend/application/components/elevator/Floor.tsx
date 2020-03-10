@@ -15,7 +15,7 @@ const styleWhite = {
 
 const Floor: React.SFC<IProperties> = ({color, name}) => {
   return (
-    <button disabled style={color ? styleBlue : styleWhite}>
+    <button disabled={true} style={color ? styleBlue : styleWhite}>
       {name}
     </button>
   );

@@ -16,7 +16,7 @@ class ButtonPanel extends React.Component<IProperties> {
     const items = [];
 
     for (let i = 0; i < nButtons; i++) {
-      items.push(<CallButton call={call} floor={i}/>);
+      items.push(<CallButton call={call} floor={i} key={i}/>);
     }
 
     return (

@@ -17,7 +17,7 @@ class Elevator extends React.Component<IProperties> {
     const items = [];
 
     for (let i = 0; i < nFloors ; i++) {
-      items.push(<Floor name={i} color={elevatorPosition === i ? true : false}/>);
+      items.push(<Floor name={i} color={elevatorPosition === i ? true : false} key={i}/>);
     }
 
     return (

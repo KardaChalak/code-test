@@ -8,7 +8,7 @@ interface IProperties {
 
 const CallButton: React.SFC<IProperties> = ({ call, floor}) => {
   return (
-    <button onClick={(e) => call(e)} name={name}>
+    <button onClick={() => call(floor)} name={name}>
       {floor}
     </button>
   );
