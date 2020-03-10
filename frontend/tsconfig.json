@@ -29,11 +29,6 @@
         "strictNullChecks": false,
         "suppressImplicitAnyIndexErrors": true
     },
-    "exclude": [
-        "node_modules"
-    ],
-    "files": [
-        ".ambient.d.ts",
-        "index.tsx"
-    ]
+  "exclude": ["node_modules"],
+  "files": [".ambient.d.ts", "index.tsx"]
 }
